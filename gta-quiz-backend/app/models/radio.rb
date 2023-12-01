@@ -1,0 +1,3 @@
+class Radio < ApplicationRecord
+
+end
