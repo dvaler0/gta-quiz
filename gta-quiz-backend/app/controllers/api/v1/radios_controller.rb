@@ -18,7 +18,8 @@ class Api::V1::RadiosController < ApplicationController
     @radio = Radio.new(radio_params)
 
     if @radio.save
-      render json: @radio, status: :created, location: @radio
+      # render json: @radio, status: :created, location: @radio
+      render status: :ok, json: { 'radio' => @radio }
     else
       render json: @radio.errors, status: :unprocessable_entity
     end
@@ -46,6 +47,6 @@ class Api::V1::RadiosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def radio_params
-      params.require(:radio).permit(:name)
+      params.require(:radio).permit(:name, :game_id)
     end
 end
