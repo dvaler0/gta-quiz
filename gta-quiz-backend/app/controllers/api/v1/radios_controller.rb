@@ -1,4 +1,4 @@
-class RadiosController < ApplicationController
+class Api::V1::RadiosController < ApplicationController
   before_action :set_radio, only: %i[ show update destroy ]
 
   # GET /radios
