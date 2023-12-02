@@ -16,6 +16,7 @@ class Api::V1::ChallengesController < ApplicationController
   # POST /challenges
   def create
     @challenge = Challenge.new(challenge_params)
+    @challenge.date = Datetime.now
 
     if @challenge.save
       render json: @challenge, status: :created, location: @challenge
