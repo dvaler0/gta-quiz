@@ -16,9 +16,10 @@ class Api::V1::ResultsController < ApplicationController
   # POST /results
   def create
     @result = Result.new(result_params)
-
+    @result.lives = 5
+   
     if @result.save
-      render json: @result, status: :created, location: @result
+      render status: :ok, json: { 'result' => @result }
     else
       render json: @result.errors, status: :unprocessable_entity
     end
@@ -26,11 +27,23 @@ class Api::V1::ResultsController < ApplicationController
 
   # PATCH/PUT /results/1
   def update
+
+    if result_params[:solution].eql?'a'
+      return render status: :ok, json: { 'bien' => 'bien' }
+    end
+
+    if @result.lives > 0
+      if !result_params[:solution].eql?'a'
+        @result.lives -= 1
+      end
+    end
+    
     if @result.update(result_params)
       render json: @result
     else
       render json: @result.errors, status: :unprocessable_entity
     end
+    
   end
 
   # DELETE /results/1
@@ -46,6 +59,6 @@ class Api::V1::ResultsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def result_params
-      params.require(:result).permit(:lives)
+      params.require(:result).permit(:lives, :challenge_id, :solution)
     end
 end
