@@ -28,15 +28,26 @@ class Api::V1::ResultsController < ApplicationController
   # PATCH/PUT /results/1
   def update
 
-    if result_params[:solution].eql?'a'
-      return render status: :ok, json: { 'bien' => 'bien' }
-    end
+    return render status: :ok, json: { 'game over' => 'no tienes vidas' } if @result.lives === 0
+    return render status: :ok, json: { 'victory' => 'ganaste' } if result_params[:solution].eql?'a'
+    @result.lives -= 1 if !result_params[:solution].eql?'a'
 
-    if @result.lives > 0
-      if !result_params[:solution].eql?'a'
-        @result.lives -= 1
-      end
-    end
+    # if result_params[:solution].eql?'a'
+    #   if @result.lives === 0
+    #     return render status: :ok, json: { 'game over' => 'respuesta correcta pero no tienes vidas' }
+    #   end
+    #   return render status: :ok, json: { 'ganaste' => 'enhorabuena!' }
+    # end
+
+    # if !result_params[:solution].eql?'a'
+    #   if @result.lives === 0
+    #     return render status: :ok, json: { 'game over' => 'respuesta incorrecta, además no tienes vidas' }
+    #   end
+
+    #   if @result.lives > 0
+    #     return render status: :ok, json: { 'mal' => 'respuesta' }
+    #   end
+    # end
     
     if @result.update(result_params)
       render json: @result
