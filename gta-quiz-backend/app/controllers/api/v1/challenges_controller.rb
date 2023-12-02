@@ -15,11 +15,12 @@ class Api::V1::ChallengesController < ApplicationController
 
   # POST /challenges
   def create
+
     @challenge = Challenge.new(challenge_params)
-    @challenge.date = Datetime.now
+    @challenge.date = DateTime.now
 
     if @challenge.save
-      render json: @challenge, status: :created, location: @challenge
+      render status: :ok, json: { 'challenge' => @challenge }
     else
       render json: @challenge.errors, status: :unprocessable_entity
     end
@@ -47,6 +48,6 @@ class Api::V1::ChallengesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def challenge_params
-      params.require(:challenge).permit(:date)
+      params.require(:challenge).permit(:date, :song_id)
     end
 end

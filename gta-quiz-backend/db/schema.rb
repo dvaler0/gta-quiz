@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_02_141134) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_02_142420) do
   create_table "challenges", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.timestamp "date"
     t.datetime "created_at", null: false
@@ -31,6 +31,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_02_141134) do
     t.datetime "updated_at", null: false
     t.bigint "game_id", null: false
     t.index ["game_id"], name: "index_radios_on_game_id"
+  end
+
+  create_table "results", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "lives"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "songs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

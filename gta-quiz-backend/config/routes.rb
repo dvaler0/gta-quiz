@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  resources :challenges
   namespace :api do
     namespace :v1 do
-    resources :songs
-    resources :games
-    resources :radios
+      resources :challenges
+      resources :games
+      resources :songs
+      resources :radios
+      resources :results
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
